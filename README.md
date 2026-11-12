@@ -13,6 +13,10 @@
 
 When someone writes a prompt like \"clean the staging directory\", \"optimize the workflow\", or \"collaborate with other models to achieve X\", the model does not decide what it wants to do. It produces output that statistically fits the request. 
 
+<div align="center">
+  <img src="./logo.jpg" alt="CaMeL Symbolic Airlock" width="200" />
+</div>
+
 Because ordinary human words are overloaded symbols with thousands of conflicting meanings across a model's training weights, a model has no shared context for which specific meaning you intended. If the prompt—or the tool permissions wrapped around it—is broad, ambiguous, or missing constraints, the model picks a statistically likely path that the human never pictured.
 
 Most AI security frameworks only defend against **external adversaries** (prompt injections hidden in untrusted data). They still blindly trust the human's initial natural language prompt to define the control flow.
