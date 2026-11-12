@@ -11,10 +11,6 @@
 
 ## Why This Exists: The Polysemy & Boundary Problem
 
-<div align="center">
-  <img src="./assets/logo.jpg" alt="CaMeL Symbolic Airlock" width="400" />
-</div>
-
 When someone writes a prompt like \"clean the staging directory\", \"optimize the workflow\", or \"collaborate with other models to achieve X\", the model does not decide what it wants to do. It produces output that statistically fits the request. 
 
 Because ordinary human words are overloaded symbols with thousands of conflicting meanings across a model's training weights, a model has no shared context for which specific meaning you intended. If the prompt—or the tool permissions wrapped around it—is broad, ambiguous, or missing constraints, the model picks a statistically likely path that the human never pictured.
