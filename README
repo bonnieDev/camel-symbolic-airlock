@@ -1,0 +1,61 @@
+The Problem: Prompt Injection Meets Human Polysemy
+
+When a user writes a prompt like "clean the staging directory" or "optimize the workflow", ordinary human verbs are packed with thousands of conflicting meanings across an LLM's training weights. The model does not "know" what you intended—it produces output that statistically fits the request.
+
+If the prompt—or the tool permissions wrapped around it—is broad, ambiguous, or missing constraints, the model picks a path that the human never pictured.
+
+Most AI security frameworks focus entirely on external adversaries while blindly trusting the user's initial natural language prompt to define the control flow.
+
+The Solution: A Two-Stage Deterministic Airlock
+
+@rmk-systems/camel-symbolic-airlock solves both halves of the problem by placing a strict middleware boundary between human language and MCP tool execution.
+
+Layer 1: The Symbolic Ambiguity Trap (Upstream Lexical Grounding)
+
+Treats natural language polysemy as a compile-time type error. Overloaded verbs ("clean", "sync", "purge") or missing numeric boundaries force the zero-permission compiler into a HALT_AMBIGUOUS_SYMBOL union branch. This suspends execution and forces the user to select a strict UI Enum button or clamped slider, resolving intent with zero second-pass LLM calls.
+
+Layer 2: Distributed CaMeL Provenance Engine (Downstream Isolation)
+
+Extends Google DeepMind's CaMeL (CApabilities for MachinE Learning) framework across stateless microservices and MCP servers using Ed25519 cryptographic envelopes and monotonic taint propagation.
+
+Installation
+
+npm install @rmk-systems/camel-symbolic-airlock zod zod-to-json-schema
+
+
+Package entrypoints are cleanly isolated so browser bundles never pull in node:crypto or server SDKs:
+
+@rmk-systems/camel-symbolic-airlock/server — Ed25519 authority, taint-merger, and MCP server interceptors.
+
+@rmk-systems/camel-symbolic-airlock/react — Headless state machine hook (useCaMeLMcpAirlock) and UI controller.
+
+Quick Start: Wrapping an MCP Tool
+
+import { CaMeLMcpToolRegistry, CaMeLGatekeeperVerifier } from "@rmk-systems/camel-symbolic-airlock/server";
+
+// 1. Initialize the verifier with your known public keys
+const verifier = new CaMeLGatekeeperVerifier({
+  UI_AIRLOCK_GATEWAY: "<PUBLIC_KEY_PEM>",
+});
+const registry = new CaMeLMcpToolRegistry(verifier);
+
+// 2. Register a tool requiring strict capability provenance
+registry.registerGuardedTool({
+  name: "execute_system_purge",
+  description: "Deletes files. Requires explicit UI capability envelope.",
+  policyMap: {
+    actionSymbol: {
+      schema: { type: "string" },
+      requireTrustedEnum: true, // Forces Layer 1 Airlock verification
+      role: "CONTROL_ACTION",
+    }
+  },
+  handler: async (args, envelopes) => {
+    return { success: true, executed: args };
+  },
+});
+
+
+License
+
+MIT © 2026 Bonnie Remeika (rmk.systems).
