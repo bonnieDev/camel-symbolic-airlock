@@ -35,10 +35,13 @@ export function useCaMeLMcpAirlock(params: {
 
   const commitResolution = useCallback(async (toolName: string) => {
     if (!draftResolution.actionSymbol) return;
-    const signedEnvelopes = await params.mintGatewayEnvelopes({
+    const resolution: { actionSymbol: string; sliderValue?: number } = {
       actionSymbol: draftResolution.actionSymbol,
-      sliderValue: draftResolution.sliderValue,
-    });
+    };
+    if (draftResolution.sliderValue !== undefined) {
+      resolution.sliderValue = draftResolution.sliderValue;
+    }
+    const signedEnvelopes = await params.mintGatewayEnvelopes(resolution);
     await executeToolWithAirlock(toolName, signedEnvelopes);
   }, [draftResolution, params, executeToolWithAirlock]);
 

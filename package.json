@@ -1,11 +1,13 @@
 {
   "name": "@rmk-systems/camel-symbolic-airlock",
   "version": "0.1.0",
-  "description": "Zero-trust Symbolic Ambiguity Trap and DeepMind CaMeL provenance middleware for Model Context Protocol (MCP) servers.",
+  "description": "Prototype stop-and-ask ambiguity trap and signed provenance envelopes for Model Context Protocol (MCP) tool calls, inspired by DeepMind's CaMeL.",
   "license": "MIT",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
   "exports": {
     ".": {
@@ -27,7 +29,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit -p tsconfig.check.json",
+    "test": "tsx --test tests/*.test.ts",
     "demo": "tsx examples/demo-mcp-server.ts"
   },
   "dependencies": {
