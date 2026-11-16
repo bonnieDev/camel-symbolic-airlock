@@ -106,6 +106,8 @@ The idea and design direction are by Bonnie Remeika. The architecture was worked
 - [Signet](https://github.com/prismer-ai/signet) is a fuller open-source project for signing agent tool calls.
 - The framing comes from *Tech Literacy, Translated: The Map of Everyday Tech* by Bonnie Remeika.
 
+[![M8ven Verified](https://m8ven.ai/badge/mcp/bonniedev/camel-symbolic-airlock?variant=verified)](https://m8ven.ai/mcp/bonniedev/camel-symbolic-airlock?s=readme)
+
 ## License
 
 MIT © Bonnie Remeika ([rmk.systems](https://rmk.systems))
